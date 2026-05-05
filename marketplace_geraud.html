@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GG Market – Plateforme Freelance</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F4EF;
+  --dark: #0E0E0E;
+  --accent: #FF5C00;
+  --accent2: #FFB800;
+  --white: #FFFFFF;
+  --card: #FFFFFF;
+  --border: #E5E0D8;
+  --text: #0E0E0E;
+  --muted: #888;
+  --green: #00C853;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Cabinet Grotesk', sans-serif;
+  min-height: 100vh;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--dark);
+  padding: 0 40px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -0.5px;
+}
+.logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  transition: all 0.2s;
+}
+
+.nav-btn.ghost {
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.nav-btn.ghost:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+
+.nav-btn.primary {
+  background: var(--accent);
+  color: #fff;
+}
+.nav-btn.primary:hover { background: #e04e00; }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 40px 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,92,0,0.1);
+  border: 1px solid rgba(255,92,0,0.25);
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: clamp(38px, 5vw, 58px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  margin-bottom: 18px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--accent);
+  position: relative;
+  display: inline-block;
+}
+
+.hero h1 em::after {
+  content: '';
+  position: absolute;
+  bottom: 2px; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.hero p {
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 400;
+  margin-bottom: 32px;
+  max-width: 420px;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-lg {
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  transition: all 0.2s;
+  letter-spacing: 0.2px;
+}
+
+.btn-lg.dark { background: var(--dark); color: #fff; }
+.btn-lg.dark:hover { background: #222; }
+.btn-lg.outline { background: transparent; color: var(--dark); border: 2px solid var(--dark); }
+.btn-lg.outline:hover { background: var(--dark); color: #fff; }
+
+/* Hero visual */
+.hero-visual {
+  position: relative;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.stat-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; grid-row: span 1; margin-top: 20px; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; margin-top: -20px; }
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s;
+}
+.stat-card:hover::before { transform: scaleX(1); }
+
+.stat-num {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--dark);
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-num span { color: var(--accent); }
+
+.stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.stat-emoji { font-size: 20px; margin-bottom: 10px; display: block; }
+
+/* ── SECTION SERVICES ── */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.section-header h2 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.8px;
+}
+
+.section-header p { font-size: 14px; color: var(--muted); }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.service-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s;
+  animation: fadeUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  border-color: var(--accent);
+}
+
+.service-card:nth-child(1) { animation-delay: 0.1s; }
+.service-card:nth-child(2) { animation-delay: 0.2s; }
+.service-card:nth-child(3) { animation-delay: 0.3s; }
+
+.card-thumb {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-thumb.cv { background: linear-gradient(135deg, #FFF3E8, #FFE0C8); }
+.card-thumb.web { background: linear-gradient(135deg, #E8F4FF, #C8E0FF); }
+.card-thumb.trad { background: linear-gradient(135deg, #E8FFF0, #C8FFD8); }
+
+.card-body { padding: 20px; }
+
+.card-seller {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.seller-avatar {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: #fff;
+  font-family: 'Clash Display', sans-serif;
+  flex-shrink: 0;
+}
+
+.seller-name { font-size: 12px; font-weight: 600; color: var(--dark); }
+.seller-badge {
+  font-size: 10px;
+  background: rgba(0,200,83,0.1);
+  color: var(--green);
+  padding: 2px 7px;
+  border-radius: 10px;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+.card-title-text {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  color: var(--dark);
+}
+
+.card-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.stars { color: var(--accent2); font-size: 12px; }
+.rating-num { font-size: 12px; font-weight: 700; color: var(--dark); }
+.rating-count { font-size: 11px; color: var(--muted); }
+
+.card-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.card-price {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.card-price small {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 400;
+}
+
+.buy-btn {
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  transition: background 0.2s;
+}
+.buy-btn:hover { background: var(--accent); }
+
+/* ── HOW IT WORKS ── */
+.how-section {
+  background: var(--dark);
+  padding: 80px 40px;
+}
+
+.how-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.how-inner h2 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -1px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.how-inner > p {
+  text-align: center;
+  color: rgba(255,255,255,0.4);
+  font-size: 14px;
+  margin-bottom: 48px;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.how-step {
+  text-align: center;
+  padding: 28px 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.03);
+  transition: border-color 0.3s;
+}
+.how-step:hover { border-color: var(--accent); }
+
+.step-icon {
+  width: 52px;
+  height: 52px;
+  background: rgba(255,92,0,0.12);
+  border: 1px solid rgba(255,92,0,0.3);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin: 0 auto 16px;
+}
+
+.how-step h3 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.how-step p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.commission-box {
+  margin-top: 40px;
+  background: linear-gradient(135deg, rgba(255,92,0,0.15), rgba(255,184,0,0.08));
+  border: 1px solid rgba(255,92,0,0.3);
+  border-radius: 16px;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.commission-box h3 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.commission-box p { font-size: 13px; color: rgba(255,255,255,0.5); }
+
+.commission-nums {
+  display: flex;
+  gap: 28px;
+}
+
+.com-item { text-align: center; }
+.com-num {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+}
+.com-label { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; }
+
+/* ── MODAL / FORM ── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.overlay.open { display: flex; }
+
+.modal {
+  background: var(--white);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 460px;
+  padding: 40px;
+  position: relative;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  width: 32px; height: 32px;
+  background: var(--border);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  transition: background 0.2s;
+}
+.modal-close:hover { background: #ddd; }
+
+.modal h2 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.modal p.sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+
+.tab-switch {
+  display: flex;
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 24px;
+  gap: 4px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 9px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  background: transparent;
+  color: var(--muted);
+  transition: all 0.2s;
+}
+.tab-btn.active { background: var(--white); color: var(--dark); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+.form-group { margin-bottom: 16px; }
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  color: var(--dark);
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus { border-color: var(--accent); background: #fff; }
+
+.role-select {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.role-option {
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+}
+.role-option:hover { border-color: var(--accent); }
+.role-option.selected { border-color: var(--accent); background: rgba(255,92,0,0.05); }
+.role-option .role-icon { font-size: 24px; margin-bottom: 6px; }
+.role-option .role-name { font-size: 13px; font-weight: 700; display: block; }
+.role-option .role-desc { font-size: 11px; color: var(--muted); }
+
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--dark);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  transition: background 0.2s;
+  margin-top: 8px;
+}
+.submit-btn:hover { background: var(--accent); }
+
+/* SUCCESS */
+.success-screen {
+  display: none;
+  text-align: center;
+  padding: 20px 0;
+}
+.success-screen.show { display: block; }
+.success-icon { font-size: 64px; margin-bottom: 16px; }
+.success-screen h3 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.success-screen p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* ── DASHBOARD ── */
+.dashboard {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 40px;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.dashboard-header h2 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.kpi {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.kpi-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.kpi-val {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.kpi-val.green { color: var(--green); }
+.kpi-val.orange { color: var(--accent); }
+
+.kpi-change { font-size: 11px; color: var(--green); margin-top: 4px; font-weight: 600; }
+
+.orders-table {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.table-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.table-header h3 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  padding: 12px 24px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--bg);
+}
+
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #faf9f7; }
+
+tbody td { padding: 14px 24px; font-size: 13px; }
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.status-badge.done { background: rgba(0,200,83,0.1); color: var(--green); }
+.status-badge.pending { background: rgba(255,184,0,0.12); color: #cc9000; }
+.status-badge.new { background: rgba(255,92,0,0.1); color: var(--accent); }
+
+/* FOOTER */
+footer {
+  background: var(--dark);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 28px;
+  font-size: 12px;
+}
+footer strong { color: var(--accent); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; gap: 40px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  nav { padding: 0 20px; }
+  .section { padding: 40px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">GG<span>Market</span></div>
+  <div class="nav-links">
+    <button class="nav-btn ghost" onclick="showPage('home')">Accueil</button>
+    <button class="nav-btn ghost" onclick="showPage('dashboard')">Dashboard</button>
+    <button class="nav-btn ghost" onclick="openModal('login')">Connexion</button>
+    <button class="nav-btn primary" onclick="openModal('register')">S'inscrire</button>
+  </div>
+</nav>
+
+<!-- ══════════ PAGE HOME ══════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">🚀 La marketplace #1 des freelances</div>
+      <h1>Trouvez les meilleurs<br><em>talents</em> en ligne</h1>
+      <p>CV professionnels, sites web, traductions… Des experts livrés en 24h. Commandez en quelques clics ou proposez vos services.</p>
+      <div class="hero-btns">
+        <button class="btn-lg dark" onclick="scrollToServices()">Voir les services</button>
+        <button class="btn-lg outline" onclick="openModal('register')">Devenir vendeur</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-emoji">👥</span>
+          <span class="stat-num">1<span>2k+</span></span>
+          <span class="stat-label">Clients actifs</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-emoji">⭐</span>
+          <span class="stat-num">4.<span>9</span></span>
+          <span class="stat-label">Note moyenne</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-emoji">✅</span>
+          <span class="stat-num">98<span>%</span></span>
+          <span class="stat-label">Satisfaction client</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-emoji">⚡</span>
+          <span class="stat-num">24<span>h</span></span>
+          <span class="stat-label">Délai moyen</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="section" id="services-section">
+    <div class="section-header">
+      <div>
+        <h2>Services populaires</h2>
+      </div>
+      <p>Tous livrés en 24-48h • Paiement sécurisé</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card" onclick="openModal('order')">
+        <div class="card-thumb cv">📄</div>
+        <div class="card-body">
+          <div class="card-seller">
+            <div class="seller-avatar">GG</div>
+            <span class="seller-name">Géraud G.</span>
+            <span class="seller-badge">⭐ Pro</span>
+          </div>
+          <div class="card-title-text">CV moderne + Lettre de motivation personnalisée</div>
+          <div class="card-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-num">5.0</span>
+            <span class="rating-count">(47 avis)</span>
+          </div>
+          <div class="card-footer-row">
+            <div class="card-price">10€ <small>/ commande</small></div>
+            <button class="buy-btn">Commander</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" onclick="openModal('order')">
+        <div class="card-thumb web">🌐</div>
+        <div class="card-body">
+          <div class="card-seller">
+            <div class="seller-avatar">GG</div>
+            <span class="seller-name">Géraud G.</span>
+            <span class="seller-badge">⭐ Pro</span>
+          </div>
+          <div class="card-title-text">Page vitrine pro — boutique, portfolio, restaurant</div>
+          <div class="card-rating">
+            <span class="stars">★★★★★</span>
+            <span class="rating-num">4.9</span>
+            <span class="rating-count">(23 avis)</span>
+          </div>
+          <div class="card-footer-row">
+            <div class="card-price">50€ <small>/ site</small></div>
+            <button class="buy-btn">Commander</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" onclick="openModal('order')">
+        <div class="card-thumb trad">🌍</div>
+        <div class="card-body">
+          <div class="card-seller">
+            <div class="seller-avatar">GG</div>
+            <span class="seller-name">Géraud G.</span>
+            <span class="seller-badge">⭐ Pro</span>
+          </div>
+          <div class="card-title-text">Traduction FR ↔ EN + réécriture professionnelle</div>
+          <div class="card-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="rating-num">4.8</span>
+            <span class="rating-count">(61 avis)</span>
+          </div>
+          <div class="card-footer-row">
+            <div class="card-price">8€ <small>/ page</small></div>
+            <button class="buy-btn">Commander</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-section">
+    <div class="how-inner">
+      <h2>Comment ça marche ?</h2>
+      <p>Simple, rapide et sécurisé — pour les clients et les vendeurs</p>
+
+      <div class="how-grid">
+        <div class="how-step">
+          <div class="step-icon">🔍</div>
+          <h3>Cherchez</h3>
+          <p>Parcourez les services disponibles et choisissez celui qui vous convient</p>
+        </div>
+        <div class="how-step">
+          <div class="step-icon">💳</div>
+          <h3>Payez</h3>
+          <p>Paiement 100% sécurisé. L'argent est bloqué jusqu'à livraison</p>
+        </div>
+        <div class="how-step">
+          <div class="step-icon">⚡</div>
+          <h3>Recevez</h3>
+          <p>Le vendeur livre votre commande en 24-48h directement</p>
+        </div>
+        <div class="how-step">
+          <div class="step-icon">⭐</div>
+          <h3>Notez</h3>
+          <p>Laissez un avis et aidez la communauté à grandir ensemble</p>
+        </div>
+      </div>
+
+      <div class="commission-box">
+        <div>
+          <h3>💰 Tu es vendeur ? Tu gagnes plus ici.</h3>
+          <p>GGMarket prend une petite commission. Le reste, c'est pour toi.</p>
+        </div>
+        <div class="commission-nums">
+          <div class="com-item">
+            <span class="com-num">85%</span>
+            <span class="com-label">Pour le vendeur</span>
+          </div>
+          <div class="com-item">
+            <span class="com-num">15%</span>
+            <span class="com-label">Commission plateforme</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════ PAGE DASHBOARD ══════════ -->
+<div id="page-dashboard" class="page">
+  <div class="dashboard">
+    <div class="dashboard-header">
+      <div>
+        <h2>👋 Bonjour, Géraud</h2>
+        <p style="color:var(--muted);font-size:13px;margin-top:4px;">Voici un résumé de ton activité</p>
+      </div>
+      <button class="btn-lg dark" onclick="openModal('register')" style="font-size:13px;padding:10px 20px;">+ Nouvelle offre</button>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-label">Revenus ce mois</div>
+        <div class="kpi-val green">340€</div>
+        <div class="kpi-change">↑ +28% vs mois dernier</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Commandes reçues</div>
+        <div class="kpi-val orange">18</div>
+        <div class="kpi-change">↑ +5 cette semaine</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Note moyenne</div>
+        <div class="kpi-val">4.9 ⭐</div>
+        <div class="kpi-change" style="color:var(--muted)">Sur 47 avis</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Commission versée</div>
+        <div class="kpi-val" style="font-size:20px">51€</div>
+        <div class="kpi-change" style="color:var(--muted)">15% sur 340€</div>
+      </div>
+    </div>
+
+    <div class="orders-table">
+      <div class="table-header">
+        <h3>Dernières commandes</h3>
+        <span style="font-size:12px;color:var(--muted)">18 commandes ce mois</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Service</th>
+            <th>Montant</th>
+            <th>Date</th>
+            <th>Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Marie K.</strong></td>
+            <td>CV + Lettre motivation</td>
+            <td><strong>10€</strong></td>
+            <td>Aujourd'hui</td>
+            <td><span class="status-badge new">Nouvelle</span></td>
+          </tr>
+          <tr>
+            <td><strong>Jean-Paul M.</strong></td>
+            <td>Page vitrine boutique</td>
+            <td><strong>50€</strong></td>
+            <td>Hier</td>
+            <td><span class="status-badge pending">En cours</span></td>
+          </tr>
+          <tr>
+            <td><strong>Awa D.</strong></td>
+            <td>Traduction (3 pages)</td>
+            <td><strong>24€</strong></td>
+            <td>02/05</td>
+            <td><span class="status-badge done">Livré ✓</span></td>
+          </tr>
+          <tr>
+            <td><strong>Kouassi B.</strong></td>
+            <td>CV + Lettre motivation</td>
+            <td><strong>10€</strong></td>
+            <td>01/05</td>
+            <td><span class="status-badge done">Livré ✓</span></td>
+          </tr>
+          <tr>
+            <td><strong>Fatou S.</strong></td>
+            <td>Page vitrine restaurant</td>
+            <td><strong>50€</strong></td>
+            <td>30/04</td>
+            <td><span class="status-badge done">Livré ✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MODALS ══════════ -->
+
+<!-- REGISTER / LOGIN MODAL -->
+<div class="overlay" id="modal-register" onclick="closeModalOutside(event,'modal-register')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-register')">✕</button>
+
+    <div id="form-screen">
+      <h2>Rejoindre GGMarket</h2>
+      <p class="sub">Créez votre compte gratuitement en 30 secondes</p>
+
+      <div class="tab-switch">
+        <button class="tab-btn active" onclick="switchTab('register')">S'inscrire</button>
+        <button class="tab-btn" onclick="switchTab('login')">Se connecter</button>
+      </div>
+
+      <div id="tab-register">
+        <p style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Je suis…</p>
+        <div class="role-select">
+          <div class="role-option selected" onclick="selectRole(this)">
+            <div class="role-icon">🛒</div>
+            <span class="role-name">Client</span>
+            <span class="role-desc">Je cherche des services</span>
+          </div>
+          <div class="role-option" onclick="selectRole(this)">
+            <div class="role-icon">💼</div>
+            <span class="role-name">Vendeur</span>
+            <span class="role-desc">Je propose mes services</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Nom complet</label>
+          <input type="text" placeholder="Ex: Jean Dupont" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="votre@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input type="password" placeholder="••••••••" />
+        </div>
+        <button class="submit-btn" onclick="showSuccess()">Créer mon compte →</button>
+      </div>
+
+      <div id="tab-login" style="display:none">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="votre@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input type="password" placeholder="••••••••" />
+        </div>
+        <button class="submit-btn" onclick="showSuccess()">Se connecter →</button>
+      </div>
+    </div>
+
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">🎉</div>
+      <h3>Bienvenue sur GGMarket !</h3>
+      <p>Votre compte a été créé avec succès.<br>Vous pouvez maintenant commander ou vendre vos services.</p>
+      <button class="submit-btn" style="margin-top:24px" onclick="closeModal('modal-register');showPage('dashboard')">Accéder au dashboard →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="overlay" id="modal-order" onclick="closeModalOutside(event,'modal-order')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-order')">✕</button>
+    <h2>Passer commande</h2>
+    <p class="sub">Remplissez les détails — livraison en 24h garantie</p>
+    <div class="form-group">
+      <label>Votre nom</label>
+      <input type="text" placeholder="Ex: Marie Kouassi" />
+    </div>
+    <div class="form-group">
+      <label>Service souhaité</label>
+      <select>
+        <option>CV + Lettre de motivation — 10€</option>
+        <option>Page vitrine web — 50€</option>
+        <option>Traduction / Réécriture — 8€/page</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Détails de votre commande</label>
+      <input type="text" placeholder="Ex: CV pour poste de comptable, 3 ans d'expérience..." />
+    </div>
+    <div class="form-group">
+      <label>Email de livraison</label>
+      <input type="email" placeholder="votre@email.com" />
+    </div>
+    <button class="submit-btn" onclick="showOrderSuccess()">Confirmer et payer →</button>
+    <div id="order-success" style="display:none;text-align:center;margin-top:20px;">
+      <div style="font-size:48px;margin-bottom:12px">✅</div>
+      <strong style="font-size:16px;font-family:'Clash Display',sans-serif;">Commande confirmée !</strong>
+      <p style="font-size:13px;color:var(--muted);margin-top:6px">Vous recevrez votre livraison sous 24h.</p>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL (séparé) -->
+<div class="overlay" id="modal-login" onclick="closeModalOutside(event,'modal-login')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-login')">✕</button>
+    <h2>Se connecter</h2>
+    <p class="sub">Content de vous revoir 👋</p>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" placeholder="votre@email.com" />
+    </div>
+    <div class="form-group">
+      <label>Mot de passe</label>
+      <input type="password" placeholder="••••••••" />
+    </div>
+    <button class="submit-btn" onclick="closeModal('modal-login');showPage('dashboard')">Se connecter →</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Fait avec ❤️ par <strong>Géraud GOUTONDE</strong> · GGMarket © 2026 · Tous droits réservés
+</footer>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function openModal(id) {
+  document.getElementById('modal-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+  // reset
+  const ss = document.getElementById('success-screen');
+  const fs = document.getElementById('form-screen');
+  if (ss) { ss.classList.remove('show'); ss.style.display = 'none'; }
+  if (fs) fs.style.display = 'block';
+  const os = document.getElementById('order-success');
+  if (os) os.style.display = 'none';
+}
+
+function closeModalOutside(e, id) {
+  if (e.target.classList.contains('overlay')) closeModal(id);
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-register').style.display = tab === 'register' ? 'block' : 'none';
+  document.getElementById('tab-login').style.display = tab === 'login' ? 'block' : 'none';
+}
+
+function selectRole(el) {
+  document.querySelectorAll('.role-option').forEach(r => r.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function showSuccess() {
+  document.getElementById('form-screen').style.display = 'none';
+  const ss = document.getElementById('success-screen');
+  ss.style.display = 'block';
+  ss.classList.add('show');
+}
+
+function showOrderSuccess() {
+  document.querySelector('#modal-order .submit-btn').style.display = 'none';
+  document.querySelector('#modal-order .form-group:last-of-type').style.display = 'none';
+  document.getElementById('order-success').style.display = 'block';
+}
+
+function scrollToServices() {
+  document.getElementById('services-section').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
